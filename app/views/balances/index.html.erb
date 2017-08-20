@@ -1,0 +1,92 @@
+<div class="container">
+  <div class="row">
+    <div class="jumbotron text-center j-top">
+      <h1>収支管理</h1>
+    </div>
+    <p>表示期間: <%= @period_start.strftime('%Y-%m-%d') %> ~ <%= @period_end.strftime('%Y-%m-%d') %></p>
+    
+    <br>
+    <p>表示期間を変更して再表示</p>
+    <br>
+    <%= form_tag(balances_path, method: 'get' ) do %>
+      開始日<%= date_field_tag :start_date , Date.today - 2.month %>
+      終了日<%= date_field_tag :end_date , Date.today - 1.month %>
+      <%= submit_tag '期間を変えて表示',  :class => 'btn btn-primary' %>
+    <% end %>
+    
+    <!-- 収支をjumbotronで表示する部分-->
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="jumbotron text-center j-income">
+            収入
+            <br><p><%= @summary[:income] %>円</p>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="jumbotron text-center j-payment">
+            支出
+            <br><p><%= @summary[:payment] %>円</p>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="jumbotron text-center j-total">
+            <b>収支</b>
+            <br><p><b><%= @summary[:income] - @summary[:payment] %>円</b></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 収支の分析(グラフ)の表示 -->
+    <div class="col-xs-12">
+      <h2>収支分析</h2>
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <%= high_chart('bar', @bar_graph) %>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <%= high_chart('pie', @pie_graph) %>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 収支の項目を1つずつ表示する部分 -->
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-12">
+          <h2>収支の詳細</h2>
+          <table class='table table-hover table-bordered'>
+            <tr class='info'>
+              <th>日付</th>
+              <th>収/支</th>
+              <th>使途</th>
+              <th>分類</th>
+              <th>金額</th>
+            </tr>
+            <% @this_month_balances.each do |balance| %>
+              <tr>
+                <td><%= balance.balance_date %></td>
+                <% if balance.balance_type == false %>
+                  <td>支出</td>
+                <% else %>
+                  <td>収入</td>
+                <% end %>
+                <td><%= balance.column %></td>
+                <td><%= balance.balance_class %></td>
+                <td><%= balance.value %></td>
+                <!-- ### balance_type == false なら 支出 ### -->
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12">
+      <%= link_to '新規登録', new_balance_path, :class => 'btn btn-primary' %>
+      <%= link_to 'TOP', root_path, :class => 'btn btn-default' %>
+    </div>
+    
+  </div>
+</div>

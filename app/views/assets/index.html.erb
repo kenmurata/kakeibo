@@ -1,0 +1,17 @@
+<div class="container">
+  <h1>資産一覧</h1>
+  <table class="table table-bordered table-hover">
+    <tr>
+      <th>資産名</th>
+      <th>タイプ</th>
+      <th>残高</th>
+    </tr>
+    <% @assets.each do |asset| %>
+      <tr>
+        <td><%= asset.name %></td>
+        <td><%= asset.asset_type %></td>
+        <td><%= asset.value %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

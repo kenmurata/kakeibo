@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <h1>システム設定</h1>
+    <div class="col-sm-9 col-lg-7">
+      <hr>
+      <h4><u>月の開始日設定</u></h4>
+      現在の開始日は<%= @start_date.value.to_i %>日です
+      <%= form_for(@start_date) do |f| %>
+        開始日: <%= f.select :value, @day %>
+        <br><%= f.submit '開始日の変更', :method => 'patch' , :class => 'btn btn-primary' %>
+      <% end %>
+    </div>
+    
+    <div class="col-sm-12 col-lg-8">
+      <br>
+      <h4><u>収支の分類設定</u></h4>
+      <table class="table table-bordered">
+        <tr class="info">
+          <th>収/支</th>
+          <th>分類</th>
+          <th>削除</th>
+        </tr>
+        <% @balance_classes.each do |balance| %>
+          <tr>
+            <td>
+              <% if balance.balance_type == true %>
+                収入
+              <% else %>
+                支出
+              <% end %>
+            </td>
+            <td><%= balance.balance_class %></td>
+            <td><%= link_to '削除',  balanceclass_path(balance.id), :method => 'delete' %></td>
+          </tr>
+        <% end %>
+      </table>
+      <%= form_for(@new_balanceclass, :url => balanceclasses_path ) do |f| %>
+        分類: <%= f.text_field :balance_class, :class => 'form-control' %>
+        収/支: <%= f.select :balance_type, [['収入', true],['支出', false]] %>
+        <br>
+        <%= f.submit '分類の登録', :method => 'post', :class => 'btn btn-primary' %>
+      <% end %>
+      <%= link_to 'TOP', root_path,  :class => 'btn btn-default' %>
+    </div>
+  </div>
+</div>

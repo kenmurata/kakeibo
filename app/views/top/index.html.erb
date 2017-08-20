@@ -1,0 +1,88 @@
+<div class="container">
+  <%= notice %><%= alert %>
+  <div class="jumbotron main-background-img">
+    <h1>我が家のカケイボ</h1>
+    簡単収支管理＆分析アプリケーション
+  </div>
+  <p>表示期間: <%= @period_start.strftime('%Y-%m-%d') %> ~ <%= @period_end.strftime('%Y-%m-%d') %></p>
+  <div class="row">
+    <div class="col-xs-12 col-lg-6">
+      <h1>今月の収支</h1>
+      <table class="table table-bordered">
+        <tr class="info">
+          <th>収入合計</th>
+          <th>支出合計</th>
+          <th>収支</th>
+        </tr>
+        <tr>
+          <td><%= @summary[:income] %>円</td>
+          <td><%= @summary[:payment] %>円</td>
+          <td><%= @summary[:income] - @summary[:payment] %>円</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-xs-12 col-lg-6">
+      <h1>収支の登録</h1>
+      <br>
+      <%= form_for(@balance) do |f|%>
+        <table class="table table-hover">
+          <tr>
+            <td>収/支</td>
+            <td><%= f.select :balance_type, [["収入", true ], ["支出", false ]], :class => 'form-horizontal' %></td>
+          </tr>
+          <tr>
+            <td>金額</td>
+            <td><%= f.number_field :value, :class => 'form-control' %></td>
+          </tr>
+          <tr>
+            <td>日付</td>
+            <td><%= f.date_field :balance_date , :value => Date.today , :class => 'form-control' %></td>
+          </tr>
+          <tr>
+            <td>使途</td>
+            <td><%= f.text_field :column , :class => 'form-control' %></td>
+          </tr>
+          <tr>
+            <td>分類</td>
+            <td><%= f.collection_select :balance_class, BalanceClass.all, :balance_class, :balance_class %></td>
+          </tr>
+          <tr>
+            <td>備考</td>
+            <td><%= f.text_area :subject , :class => 'form-control' %></td>
+          </tr>
+        </table>
+        <%= f.submit '収支の登録' , :method => 'post', :class => 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>最近の項目</h1>
+      <table class='table table-hover table-bordered'>
+        <tr class='success'>
+          <th>日付</th>
+          <th>収/支</th>
+          <th>使途</th>
+          <th>分類</th>
+          <th>金額</th>
+        </tr>
+        <% @this_month_balances.first(5).each do |balance| %>
+          <tr>
+            <td><%= balance.balance_date %></td>
+            <!-- ### balance_type == false なら 支出 ### -->
+            <% if balance.balance_type == false %>
+              <td>支出</td>
+            <% else %>
+              <td>収入</td>
+            <% end %>
+            <td><%= balance.column %></td>
+            <td><%= balance.balance_class %></td>
+            <td><%= balance.value %></td>
+          </tr>
+        <% end %>
+      </table>
+    <%= link_to 'さらに見る', balances_path, class: 'btn btn-default' %>
+    <br>
+    </div>
+  </div>
+</div>

@@ -43,3 +43,6 @@ group :development, :test do
   gem 'spring'
 end
 
+gem 'twitter-bootstrap-rails'
+gem 'lazy_high_charts'
+gem 'nested_form_fields'
