@@ -46,3 +46,5 @@ end
 gem 'twitter-bootstrap-rails'
 gem 'lazy_high_charts'
 gem 'nested_form_fields'
+
+gem 'rails_12factor', group: :production
