@@ -55,11 +55,24 @@ class BalancesController < ApplicationController
     @balance = Balance.new
   end
   
+  
+  ### 一括登録する時に入力欄を追加するアクション
+  def add
+    @balance = Balance.new
+  end
+  
+  ### 一括登録するアクション
+  def bulk_create
+    balances = params.require(:balances).map{ |balance| balance.permit(:value, :column, :subject, :balance_type, :balance_date, :balance_class) }
+    balances.each do |b|
+      Balance.create b
+    end
+    redirect_to root_path
+  end
+  
+  ### 1つだけ登録するアクション(TOPページ経由)
   def create
     balance = Balance.new(balance_params)
-    
-    # 今月のデータを検索するため、年月をstring型で保存
-    balance.date_month = balance.balance_date.strftime('%Y-%m')
     
     # 保存
     if balance.save
@@ -67,6 +80,12 @@ class BalancesController < ApplicationController
     else
       redirect_to root_path, alert: '登録に失敗しました'
     end
+  end
+  
+  def destroy
+    balance = Balance.find(params[:id])
+    balance.delete
+    redirect_to balances_path, notice: '削除しました'
   end
   
   private

@@ -63,6 +63,7 @@
               <th>使途</th>
               <th>分類</th>
               <th>金額</th>
+              <th>削除</th>
             </tr>
             <% @this_month_balances.each do |balance| %>
               <tr>
@@ -75,6 +76,7 @@
                 <td><%= balance.column %></td>
                 <td><%= balance.balance_class %></td>
                 <td><%= balance.value %></td>
+                <td><%= link_to '削除', balance_path(balance.id), :method => 'delete' %></td>
                 <!-- ### balance_type == false なら 支出 ### -->
               </tr>
             <% end %>

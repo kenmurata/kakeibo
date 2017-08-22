@@ -2,9 +2,15 @@ Rails.application.routes.draw do
   
   root 'top#index'
   resources :assets,  only: [:index, :new]
-  resources :balances, only: [:index, :new, :create]
   resources :system_configs, only: [:index, :edit, :update]
   resources :balanceclasses, only: [:create, :destroy]
+  resources :balances, only: [:index, :new, :create, :destroy] do
+    collection do
+      get 'add'
+      post 'bulk_create'
+    end
+  end
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

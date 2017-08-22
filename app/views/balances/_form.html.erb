@@ -1,0 +1,24 @@
+<% id = "remove_#{Time.now.to_i}_#{Time.now.usec.to_i}" %>
+<tr>
+<%= fields_for "balances[]", @balance, index: nil do |f| %>
+  <td><%= f.select :balance_type, [["収入", true ], ["支出", false ]], :class => 'form-horizontal' %></td>
+  <td><%= f.number_field :value, :class => 'form-control' %></td>
+  <td><%= f.date_field :balance_date , :value => Date.today , :class => 'form-control' %></td>
+  <td><%= f.text_field :column , :class => 'form-control' %></td>
+  <td><%= f.collection_select :balance_class, BalanceClass.all, :balance_class, :balance_class %></td>
+  <td><%= f.text_area :subject , :class => 'form-control' %></td>
+  <% end %>
+  
+  <!-- 削除リンク -->
+  <td><%= link_to '1行削除', '', id: id , :class => 'btn btn-danger' %></td>
+</tr>
+
+<%= javascript_tag do %>
+  $(document).ready(function(e){
+    $('#<%= id %>').click(function(e){
+      e.preventDefault();
+      $(this).parent().parent().remove();
+      return false
+    });
+  })
+<% end %>

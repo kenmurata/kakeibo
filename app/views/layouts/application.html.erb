@@ -17,15 +17,19 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <%= link_to root_path do %>
-            <%= image_tag('mylogo_white.png') %>
-          <% end %>
+          
+          <!-- ロゴ。アプリ名が決まらないので今回は消しておく -->
+          <%#= link_to root_path do %>
+            <%#= image_tag('mylogo_white.png') %>
+          <%# end %>
+          
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "TOP", root_path , :class => 'mycssclass' %></li>
             <li><%= link_to "設定", system_configs_path, :class => 'mycssclass' %></li>
             <li><%= link_to "収支管理", balances_path, :class => 'mycssclass' %></li>
-            <li><%= link_to "資産管理", assets_path , :class => 'mycssclass' %></li>
+            <!--<li><%= link_to "資産管理", assets_path , :class => 'mycssclass' %></li>-->
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

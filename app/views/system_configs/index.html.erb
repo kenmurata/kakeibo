@@ -1,19 +1,22 @@
 <div class="container">
   <div class="row">
-    <h1>システム設定</h1>
-    <div class="col-sm-9 col-lg-7">
-      <hr>
-      <h4><u>月の開始日設定</u></h4>
-      現在の開始日は<%= @start_date.value.to_i %>日です
+    <div class="jumbotron text-center">
+      <h1>システム設定</h1>
+    </div>
+    <div class="col-xs-12">
+      <h1>開始日の設定</h1>
+      何日から何日までを1か月とするかを設定します。<br>
+      現在の開始日は <b><%= @start_date.value.to_i %>日</b> です
       <%= form_for(@start_date) do |f| %>
-        開始日: <%= f.select :value, @day %>
-        <br><%= f.submit '開始日の変更', :method => 'patch' , :class => 'btn btn-primary' %>
+        <h4>開始日:<%= f.select :value, @day, :class => 'form form-horizontal' %></h4>
+        <%= f.submit '開始日の変更', :method => 'patch' , :class => 'btn btn-primary' %>
       <% end %>
     </div>
     
-    <div class="col-sm-12 col-lg-8">
+    <div class="col-xs-12">
       <br>
-      <h4><u>収支の分類設定</u></h4>
+      <h1>収支の分類設定</h1>
+      収支を入力する際に設定する分類を登録します。現在の登録内容は以下の通りです。
       <table class="table table-bordered">
         <tr class="info">
           <th>収/支</th>
@@ -34,13 +37,23 @@
           </tr>
         <% end %>
       </table>
+    </div>
+    <div class="col-xs-12">
+      <h4>新しく分類を登録する</h4>
       <%= form_for(@new_balanceclass, :url => balanceclasses_path ) do |f| %>
-        分類: <%= f.text_field :balance_class, :class => 'form-control' %>
-        収/支: <%= f.select :balance_type, [['収入', true],['支出', false]] %>
-        <br>
+        <table class="table table-hover">
+          <tr>
+            <th>収/支</th>
+            <th>分類</th>
+          </tr>
+          <tr>
+            <td><%= f.select :balance_type, [['収入', true],['支出', false]] %></td>
+            <td><%= f.text_field :balance_class, :class => 'form-control' %></td>
+          </tr>
+        </table>
         <%= f.submit '分類の登録', :method => 'post', :class => 'btn btn-primary' %>
+        <%= link_to 'TOP', root_path,  :class => 'btn btn-default' %>
       <% end %>
-      <%= link_to 'TOP', root_path,  :class => 'btn btn-default' %>
     </div>
   </div>
 </div>
