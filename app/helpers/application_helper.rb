@@ -39,7 +39,7 @@ module ApplicationHelper
     # 支出の分類ごとに合計を出す
     # まず分類の一覧を取得
     balances.each do |b|
-      if ! balance_classes.include?(b.balance_class)
+      if ! balance_classes.include?(b.balance_class) && b.balance_type == false
         balance_classes.push(b.balance_class)
       end
     end
