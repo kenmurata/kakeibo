@@ -10,6 +10,9 @@ Rails.application.routes.draw do
       post 'bulk_create'
     end
   end
+
+  # For Line 
+  post '/callback' => 'webhook#callback'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
