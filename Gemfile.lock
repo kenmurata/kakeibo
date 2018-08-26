@@ -36,31 +36,11 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    airbrussh (1.3.0)
-      sshkit (>= 1.6.1, != 1.7.0)
     arel (6.0.4)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.3)
     byebug (9.0.6)
-    capistrano (3.6.0)
-      airbrussh (>= 1.0.0)
-      capistrano-harrow
-      i18n
-      rake (>= 10.0.0)
-      sshkit (>= 1.9.0)
-    capistrano-bundler (1.3.0)
-      capistrano (~> 3.1)
-      sshkit (~> 1.2)
-    capistrano-harrow (0.5.3)
-    capistrano-rails (1.4.0)
-      capistrano (~> 3.1)
-      capistrano-bundler (~> 1.1)
-    capistrano-rbenv (2.1.3)
-      capistrano (~> 3.1)
-      sshkit (~> 1.3)
-    capistrano3-unicorn (0.2.1)
-      capistrano (~> 3.1, >= 3.1.0)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -70,12 +50,10 @@ GEM
     coffee-script-source (1.12.2)
     commonjs (0.2.7)
     concurrent-ruby (1.0.5)
+    daemons (1.2.6)
     debug_inspector (0.0.3)
-    dotenv (2.5.0)
-    dotenv-rails (2.5.0)
-      dotenv (= 2.5.0)
-      railties (>= 3.2, < 6.0)
     erubis (2.7.0)
+    eventmachine (1.2.7)
     execjs (2.7.0)
     ffi (1.9.18)
     globalid (0.4.0)
@@ -90,7 +68,6 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.6)
-    kgio (2.11.2)
     lazy_high_charts (1.5.8)
       hash-deep-merge
     less (2.6.0)
@@ -101,6 +78,7 @@ GEM
       sprockets (> 2, < 4)
       tilt
     libv8 (3.16.14.19)
+    line-bot-api (1.2.5)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.6)
@@ -115,9 +93,6 @@ GEM
       coffee-rails (>= 3.2.1)
       jquery-rails
       rails (>= 3.2.0)
-    net-scp (1.2.1)
-      net-ssh (>= 2.6.5)
-    net-ssh (5.0.2)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
     pg (0.21.0)
@@ -153,7 +128,6 @@ GEM
       activesupport (= 4.2.3)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    raindrops (0.19.0)
     rake (12.0.0)
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
@@ -183,12 +157,13 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sshkit (1.17.0)
-      net-scp (>= 1.1.2)
-      net-ssh (>= 2.8.0)
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
+    thin (1.7.2)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0, >= 1.0.4)
+      rack (>= 1, < 3)
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.8)
@@ -204,9 +179,6 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
-    unicorn (5.4.1)
-      kgio (~> 2.6)
-      raindrops (~> 0.7)
     web-console (2.3.0)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
@@ -218,16 +190,11 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  capistrano (= 3.6.0)
-  capistrano-bundler
-  capistrano-rails
-  capistrano-rbenv
-  capistrano3-unicorn
   coffee-rails (~> 4.1.0)
-  dotenv-rails
   jbuilder (~> 2.0)
   jquery-rails
   lazy_high_charts
+  line-bot-api
   nested_form_fields
   pg
   rails (= 4.2.3)
@@ -236,11 +203,11 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   spring
   therubyracer
+  thin
   turbolinks
   twitter-bootstrap-rails
   uglifier (>= 1.3.0)
-  unicorn
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.16.1
+   1.16.0
